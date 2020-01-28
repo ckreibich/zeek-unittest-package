@@ -1,0 +1,8 @@
+[package]
+script_dir = scripts/Corelight/Template
+build_command = ./configure && make
+test_command = cd testing && btest -c btest.cfg
+corelight_name = Template
+summary = TODO a one-line package summary
+description = TODO an optional multi-line summary.
+    Continue this (with this indentation), if desired.
