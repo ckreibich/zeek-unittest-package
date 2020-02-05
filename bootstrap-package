@@ -11,10 +11,12 @@ do_verbose=no
 
 instantiate_pkg() {
 
+    # Pre-Bash-4 compatibility in the following, otherwise would use
+    # ,, and ^^ substitutions.
     declare -A translations=(
-        ["template"]="${pkgname,,*}"
+        ["template"]="$(echo $pkgname | tr '[:upper:]' '[:lower:]')"
         ["Template"]="${pkgname}"
-        ["TEMPLATE"]="${pkgname^^*}"
+        ["TEMPLATE"]="$(echo $pkgname | tr '[:lower:]' '[:upper:]')"
     )
 
     local src
