@@ -32,7 +32,7 @@ instantiate_pkg() {
         sed -i 's/\/Corelight\/Template//' zkg.meta
 
         git rm src/*
-        git rm configure configure.plugin CMakeLists.txt Makefile VERSION
+        git rm configure configure.plugin precompile-package CMakeLists.txt Makefile VERSION
         git rm scripts/__preload__.zeek scripts/types.zeek
 
         git mv -f scripts/Corelight/Template/__load__.zeek scripts/__load__.zeek
