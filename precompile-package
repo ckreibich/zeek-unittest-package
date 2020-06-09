@@ -1,0 +1,79 @@
+#!/bin/bash
+
+# This script implements the six step transformation mechanism as explained in 
+# https://confluence.corelight.io/display/IN/Precompiled+plugins+for+Zeek+packages
+
+function compilePlugin
+{
+	cd "$1" || exit
+
+	# clean any prior invocations of this script on the plugin
+	sed -i '/function (compilePlugin)/d' ./CMakeLists.txt
+	sed -i '/endfunction()/d' ./CMakeLists.txt
+	sed -i '/execute_process(COMMAND bash \"-c\" \"zeek/,+10d' ./CMakeLists.txt
+	make distclean
+
+	# build afresh
+	./configure
+	make
+}
+
+function removeCmake
+{
+	# remove all instances of CMake files from the build directory
+	find ./build -type f -name "*cmake*" -exec rm -f {} \;
+	rm -rf ./build/CMakeFiles ./build/CMakeCache.txt
+}
+
+function addScripts
+{
+	# remove the symlink and add the scripts sources in the build directory
+	scriptDir="./build/scripts"
+	path=$(readlink -f "$scriptDir")
+	rm "$scriptDir"
+	cp -r "$path" "$scriptDir"
+}
+
+function updateZkgMeta
+{
+	# delete plugin_dir and test_command in the .meta file
+	sed -i '/plugin_dir/d' ./zkg.meta
+	sed -i '/test_command/d' ./zkg.meta
+}
+
+function updateCMakeLists
+{
+	# update the CMakeLists.txt with appropriate Zeek version checks
+	printf "
+execute_process(COMMAND bash \"-c\" \"zeek --version | sed 's/zeek version //'\" OUTPUT_VARIABLE ZEEK_VERSION)
+string(REGEX REPLACE \"\\\n$\" \"\" ZEEK_VERSION \"\${ZEEK_VERSION}\")
+
+if((\"\${CMAKE_SYSTEM_PROCESSOR}\" STREQUAL \"x86_64\") AND (\"\${ZEEK_VERSION}\" STREQUAL \"3.0.1-corelight\"))
+	message(\"-- Target architecture supported. Using a precompiled binary.\")
+else()
+	message(\"-- Target architecture unsupported. Compiling the binary.\")
+	compilePlugin()
+endif()
+" > tmp.txt
+
+	sed  -i '/include(ZeekPlugin)/i function (compilePlugin)' ./CMakeLists.txt
+	sed  -i '/zeek_plugin_end()/a endfunction()' ./CMakeLists.txt
+	sed  -i '/endfunction()/r tmp.txt' ./CMakeLists.txt
+
+	rm tmp.txt
+}
+
+function gitCommit
+{
+	# commit the changes
+	git add CMakeLists.txt
+	git add build
+	git commit -m "Add support for precompiled Zeek plugin."
+}
+
+compilePlugin "$1"
+removeCmake
+addScripts
+updateZkgMeta
+updateCMakeLists
+gitCommit
