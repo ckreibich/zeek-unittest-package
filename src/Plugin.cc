@@ -1,5 +1,6 @@
 
 #include "Plugin.h"
+#include "doctest.h"
 
 namespace plugin { namespace Corelight_UnitTest { Plugin plugin; } }
 
@@ -16,3 +17,8 @@ zeek::plugin::Configuration Plugin::Configure()
 	// config.version.patch = 0;
 	return config;
 	}
+
+TEST_CASE("plugin doctest")
+        {
+        CHECK(true);
+        }
