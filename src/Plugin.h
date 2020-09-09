@@ -1,11 +1,11 @@
 
-#ifndef ZEEK_PLUGIN_CORELIGHT_TEMPLATE
-#define ZEEK_PLUGIN_CORELIGHT_TEMPLATE
+#ifndef ZEEK_PLUGIN_CORELIGHT_UNITTEST
+#define ZEEK_PLUGIN_CORELIGHT_UNITTEST
 
 #include <plugin/Plugin.h>
 
 namespace plugin {
-namespace Corelight_Template {
+namespace Corelight_UnitTest {
 
 class Plugin : public ::plugin::Plugin
 {

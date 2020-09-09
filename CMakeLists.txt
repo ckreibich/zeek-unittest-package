@@ -1,13 +1,13 @@
 
 cmake_minimum_required(VERSION 3.0 FATAL_ERROR)
 
-project(ZeekPluginTemplate)
+project(ZeekPluginUnitTest)
 
 include(ZeekPlugin)
 
-zeek_plugin_begin(Corelight Template)
+zeek_plugin_begin(Corelight UnitTest)
 zeek_plugin_cc(src/Plugin.cc)
-zeek_plugin_bif(src/template.bif)
+zeek_plugin_bif(src/unittest.bif)
 zeek_plugin_dist_files(README COPYING VERSION)
 zeek_plugin_end()
 

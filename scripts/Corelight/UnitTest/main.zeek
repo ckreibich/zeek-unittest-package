@@ -1,4 +1,4 @@
-module Template;
+module UnitTest;
 
 event zeek_init()
 	{

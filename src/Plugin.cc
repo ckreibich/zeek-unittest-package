@@ -1,14 +1,14 @@
 
 #include "Plugin.h"
 
-namespace plugin { namespace Corelight_Template { Plugin plugin; } }
+namespace plugin { namespace Corelight_UnitTest { Plugin plugin; } }
 
-using namespace plugin::Corelight_Template;
+using namespace plugin::Corelight_UnitTest;
 
 plugin::Configuration Plugin::Configure()
 	{
 	plugin::Configuration config;
-	config.name = "Corelight::Template";
+	config.name = "Corelight::UnitTest";
 	config.description = "TODO: Insert description";
 	config.version.major = 0;
 	config.version.minor = 1;
