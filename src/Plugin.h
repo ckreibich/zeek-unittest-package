@@ -10,8 +10,8 @@ namespace Corelight_UnitTest {
 class Plugin : public ::plugin::Plugin
 {
 protected:
-	// Overridden from plugin::Plugin.
-	plugin::Configuration Configure() override;
+    // Overridden from plugin::Plugin.
+    zeek::plugin::Configuration Configure() override;
 };
 
 extern Plugin plugin;

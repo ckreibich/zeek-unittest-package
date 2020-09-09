@@ -5,9 +5,9 @@ namespace plugin { namespace Corelight_UnitTest { Plugin plugin; } }
 
 using namespace plugin::Corelight_UnitTest;
 
-plugin::Configuration Plugin::Configure()
+zeek::plugin::Configuration Plugin::Configure()
 	{
-	plugin::Configuration config;
+	zeek::plugin::Configuration config;
 	config.name = "Corelight::UnitTest";
 	config.description = "TODO: Insert description";
 	config.version.major = 0;
