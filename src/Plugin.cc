@@ -1,5 +1,6 @@
-
 #include "Plugin.h"
+#include <zeek/ID.h>
+#include <zeek/Scope.h>
 #include "doctest.h"
 
 namespace plugin { namespace Corelight_UnitTest { Plugin plugin; } }
@@ -15,6 +16,8 @@ zeek::plugin::Configuration Plugin::Configure()
 	config.version.minor = 1;
         // Provided as of Zeek 3; override if needed:
 	// config.version.patch = 0;
+
+        in_debug = true;
 	return config;
 	}
 
