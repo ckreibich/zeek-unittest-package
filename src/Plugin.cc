@@ -1,11 +1,12 @@
-#include "Plugin.h"
 #include <zeek/ID.h>
 #include <zeek/Scope.h>
-#include "doctest.h"
+#include <zeek/3rdparty/doctest.h>
 
-namespace plugin { namespace Corelight_UnitTest { Plugin plugin; } }
+#include "Plugin.h"
 
-using namespace plugin::Corelight_UnitTest;
+namespace zeek::plugin { namespace Corelight_UnitTest { Plugin plugin; } }
+
+using namespace zeek::plugin::Corelight_UnitTest;
 
 zeek::plugin::Configuration Plugin::Configure()
 	{

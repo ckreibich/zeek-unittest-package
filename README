@@ -1,5 +1,12 @@
-
 Corelight::UnitTest
 =================================
 
-<Insert plugin documentation here.>
+A Zeek package with a plugin that includes experimental unit test support.
+This only works with a custom Zeek build in this branch:
+
+https://github.com/zeek/zeek/pull/new/topic/christian/doctest-in-packages
+
+To see the unit tests defind in this package, take a look at src/Plugin.cc
+
+For configure-level tweaks, see configure.plugin. CMakeLists.txt duplicates the
+`ENABLE_ZEEK_UNIT_TESTS` logic also found in Zeek.

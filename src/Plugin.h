@@ -2,12 +2,12 @@
 #ifndef ZEEK_PLUGIN_CORELIGHT_UNITTEST
 #define ZEEK_PLUGIN_CORELIGHT_UNITTEST
 
-#include <plugin/Plugin.h>
+#include <zeek/plugin/Plugin.h>
 
-namespace plugin {
+namespace zeek::plugin {
 namespace Corelight_UnitTest {
 
-class Plugin : public ::plugin::Plugin
+class Plugin : public zeek::plugin::Plugin
 {
 protected:
     // Overridden from plugin::Plugin.

@@ -3,11 +3,17 @@ cmake_minimum_required(VERSION 3.0 FATAL_ERROR)
 
 project(ZeekPluginUnitTest)
 
+if (ENABLE_ZEEK_UNIT_TESTS)
+    enable_testing()
+    add_definitions(-DDOCTEST_CONFIG_SUPER_FAST_ASSERTS)
+else ()
+    add_definitions(-DDOCTEST_CONFIG_DISABLE)
+endif ()
+
 include(ZeekPlugin)
 
 zeek_plugin_begin(Corelight UnitTest)
 zeek_plugin_cc(src/Plugin.cc)
-zeek_plugin_bif(src/unittest.bif)
 zeek_plugin_dist_files(README COPYING VERSION)
 zeek_plugin_end()
 

@@ -5,22 +5,34 @@
 
 plugin_usage()
 {
-    : # Do nothing
-#    cat <<EOF
-#    --with-foo=DIR          Path to foo
-# EOF
+    cat <<EOF
+    --enable-cpp-tests         Build unit tests
+EOF
 }
 
 plugin_option()
 {
     case "$1" in
-#        --with-foo=*)
-#            append_cache_entry FOO_DIR PATH $optarg
-#            return 0
-#            ;;
-
+        --enable-cpp-tests)
+            append_cache_entry ENABLE_ZEEK_UNIT_TESTS BOOL    true
+            ;;
         *)
             return 1;
             ;;
     esac
+}
+
+
+plugin_addl()
+{
+    [ -z "${zeek_config}" ] && return;
+
+    # If Zeek has unit tests, enable them for us too:
+    zeek_bin="$(zeek-config --prefix)/bin/zeek"
+    if [ -x "$zeek_bin" ]; then
+        if "$zeek_bin" --test -h >/dev/null 2>&1; then
+            echo "Zeek has unit test support, enabling"
+            append_cache_entry ENABLE_ZEEK_UNIT_TESTS BOOL    true
+        fi
+    fi
 }
